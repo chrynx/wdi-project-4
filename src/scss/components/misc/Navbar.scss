@@ -1,0 +1,26 @@
+.Navbar {
+  height: 5vh;
+  background: black;
+  div {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    a {
+      color: lightGreen;
+      text-decoration: none;
+      width: 20%;
+      &:hover {
+        transition: 0.2s;
+        background: green;
+        color: black;
+        div {
+          transition: 0.4s;
+          transform: scale(1.2);
+        }
+      }
+      div {
+        height: 5vh;
+      }
+    }
+  }
+}

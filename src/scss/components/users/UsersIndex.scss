@@ -1,0 +1,45 @@
+.UsersIndex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  float: left;
+  width: 80%;
+  height: 90vh;
+  overflow-y: scroll;
+  background: black;
+  color: green;
+  border-top: 2px solid darkGreen;
+  border-bottom: 2px solid darkGreen;
+  div {
+    .card{
+      margin-top: 10px;
+      img {
+        border: 0px;
+        border-radius: 50%;
+        max-width: 150px;
+      }
+      p {
+        margin: 0;
+        visibility: hidden;
+        font-size: 27px;
+      }
+      transition: 0.5s;
+      opacity: 0.5;
+      border-radius: 10px;
+      &:hover {
+        opacity: 1;
+        animation: pulse 0.5s infinite;
+        padding-top: 50px;
+        p {
+          visibility: visible;
+        }
+      }
+    }
+  }
+
+}
+@keyframes pulse {
+  0% {transform: scale(1);}
+  50% {transform: scale(1.02);}
+  100 {transform: scale(1);}
+}

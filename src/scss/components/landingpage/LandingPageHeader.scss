@@ -1,0 +1,13 @@
+.LandingPageHeader {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 5vh;
+  background: black;
+  p {
+    margin: 0;
+    font-size: 40px;
+    color: green;
+    font-weight: 700;
+  }
+}

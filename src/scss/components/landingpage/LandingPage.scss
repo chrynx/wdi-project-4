@@ -1,0 +1,9 @@
+.LandingPage {
+  background: url('http://salars.net/wp-content/uploads/2017/05/1291_631612983.gif') center center;
+  background-size: cover;
+  min-height: 90vh;
+  .forms {
+    display: flex;
+    flex-direction: column;
+  }
+}
