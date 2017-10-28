@@ -32,7 +32,7 @@ class Register extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     Axios.post('/api/register', this.state.user)
-      .then(() => this.props.history.push('/'))
+      .then()
       .catch(err => console.log(err));
   }
 

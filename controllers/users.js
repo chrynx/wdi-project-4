@@ -11,23 +11,11 @@ function usersShow(req, res) {
   User
     .findById(req.params.id)
     .exec()
-    .then(user => {
-      console.log(user);
-      res.render('users/profile', { user, test: 'Hello' });
-    })
-    .catch(err => res.render('error', {err}));
-}
-function usersEdit (req, res) {
-  User
-    .findById(req.params.id)
-    .exec()
-    .then(user => {
-      res.render('users/edit', {user});
-    })
+    .then(user => res.json(user))
     .catch(err => res.render('error', {err}));
 }
 
-function usersUpdate (req, res) {
+function usersUpdate (req, res, next) {
   User
     .findById(req.params.id)
     .exec()
@@ -35,22 +23,10 @@ function usersUpdate (req, res) {
       user = Object.assign(user, req.body);
       return user.save();
     })
-    .then(user => {
-      req.flash('success', 'Profile edited');
-      res.redirect(`${user.id}`);
-    })
-    .catch(err => res.render('error', { err }));
+
+    .catch(next);
 }
 
-function usersEditPassword (req, res) {
-  User
-    .findById(req.params.id)
-    .exec()
-    .then(user => {
-      res.render('users/password', {user});
-    })
-    .catch(err => res.render('error', {err}));
-}
 function usersUpdatePassword (req, res) {
   User
     .findById(req.params.id)
@@ -89,9 +65,7 @@ function usersCheckUsername(req, res) {
 module.exports = {
   index: usersIndex,
   show: usersShow,
-  edit: usersEdit,
   update: usersUpdate,
-  editPassword: usersEditPassword,
   updatePassword: usersUpdatePassword,
   // ---------------------------------------------------------
   // EMAIL VALIDATION

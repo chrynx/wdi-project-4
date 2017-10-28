@@ -2,6 +2,7 @@ import React from 'react';
 import '../../scss/components/landingpage/RegisterForm.scss';
 
 const LoginForm = ({ handleChange, handleSubmit, user }) => {
+
   return(
     <div className="RegisterForm">
       <legend>Register</legend>

@@ -11,7 +11,7 @@ const userSchema = mongoose.Schema({
   image: { type: String, writable: true, required: 'An image is required' },
   email: { type: String, writable: true, unique: 'Email has already been taken', required: 'An e-mail address is required' },
   password: { type: String, writable: true, required: 'A password is required' },
-  requests: [{type: String}],
+  requests: [ {type: String} ],
   matches: [{type: String}]
 });
 

@@ -1,22 +1,30 @@
 import React from 'react';
 import Axios from 'axios';
+import { withRouter } from 'react-router-dom';
 import '../../scss/components/misc/ProfileAside.scss';
+import Auth from './Auth';
 
 class ProfileAside extends React.Component {
     state = {
       user: {}
     }
+    logout = () => {
+      Auth.logout();
+      this.props.history.push('/');
+    }
     componentDidMount() {
       Axios
-        .get('/api/users')
-        .then(res => this.setState({ user: res.data[1]}))
+        .get(`/api/users/${Auth.getPayload().userId}`,{
+          headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
+        })
+        .then(res => this.setState({ user: res.data}))
         .catch(err => console.log(err));
     }
     render() {
       return (
         <section className="ProfileAside">
           <div>
-            <button>Edit</button>
+            <button onClick={this.logout}>Logout</button>
           </div>
           <div className="profileAsideInfo">
             <img src={this.state.user.image}/>
@@ -34,4 +42,4 @@ class ProfileAside extends React.Component {
     }
 }
 
-export default ProfileAside;
+export default withRouter(ProfileAside);

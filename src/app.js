@@ -7,6 +7,8 @@ import './scss/style.scss';
 import Navbar from './components/misc/Navbar';
 import ProfileAside from './components/misc/ProfileAside';
 import EmptyPage from './components/misc/EmptyPage';
+import ProtectedRoute from './components/misc/ProtectedRoute';
+import Auth from './components/misc/Auth';
 // --------------global components END-------------
 
 // ----------landing page components------------
@@ -23,32 +25,26 @@ import UsersSent from './components/users/UsersSent';
 // --------------path "/users" END------------------
 
 class App extends React.Component {
-  state = {
-    user: {}
-  }
-
   render() {
     return (
       <BrowserRouter>
         <div>
           <header>
-            { this.state.user ? <Navbar /> : <LandingPageHeader /> }
+            <Route exact path="/" component={LandingPageHeader} />
+            <ProtectedRoute component={Navbar} />
           </header>
           <div className="middle">
             <main>
               <Route exact path="/" component={LandingPage} />
-              <Route path="/users" component={UsersIndex} />
-              <Route path="/requests" component={UsersRequest} />
-              <Route path="/matches" component={UsersMatch} />
-              <Route path="/inbox" component={UsersInbox} />
-              <Route path="/sent" component={UsersSent} />
+              <ProtectedRoute path="/users" component={UsersIndex} />
+              <ProtectedRoute path="/requests" component={UsersRequest} />
+              <ProtectedRoute path="/matches" component={UsersMatch} />
+              <ProtectedRoute path="/inbox" component={UsersInbox} />
+              <ProtectedRoute path="/sent" component={UsersSent} />
             </main>
             <aside>
-              { this.state.user ?
-                <ProfileAside />
-                :
-                <EmptyPage />
-              }
+              {!Auth.isAuthenticated() && <Route exact path="/" component={EmptyPage} /> }
+              <ProtectedRoute component={ProfileAside} />
             </aside>
           </div>
           <footer>

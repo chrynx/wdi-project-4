@@ -8,6 +8,9 @@ const users = require('../controllers/users');
 router.route('/users')
   .get(secureRoute, users.index);
 
+router.route('/users/:id')
+  .get(secureRoute, users.show)
+  .put(users.update);
 // ====================================================================
 router.route('/register')
   .post(auth.register);

@@ -1,0 +1,12 @@
+.modalContent {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  .modalContentLeft {
+    max-width: 50%;
+  }
+  .modalContentRight {
+    max-width: 50%;
+  }
+}
