@@ -10,6 +10,7 @@ function usersIndex(req, res, next) {
 function usersShow(req, res) {
   User
     .findById(req.params.id)
+    .populate('requests')
     .exec()
     .then(user => res.json(user))
     .catch(err => res.render('error', {err}));

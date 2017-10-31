@@ -3,7 +3,7 @@
     transform: scale(0.8);
     transition: 0.5s;
     opacity: 0.2;
-    background: rgba(0,0,0,0.7);
+    background: #fafafa;
     &:hover {
       opacity: 1;
     }
@@ -11,7 +11,6 @@
   width: 400px;
   legend {
     font-size: 18px;
-    color: white;
   }
   form {
     display: flex;
@@ -20,7 +19,6 @@
     label {
       align-self: flex-start;
       font-size: 18px;
-      color: white;
     }
     input {
       border: 2px solid black;
@@ -39,8 +37,8 @@
       height: 3vh;
       width: 100%;
       &:hover {
-        background: green;
-        color: white;
+        background: black;
+        color: #fafafa;
       }
     }
   }

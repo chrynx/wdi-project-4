@@ -1,20 +1,20 @@
 .Navbar {
   height: 5vh;
-  background: black;
+  background: #fafafa;
   div {
     display: flex;
     justify-content: space-around;
     align-items: center;
     a {
-      color: lightGreen;
+      color: black;
       text-decoration: none;
       width: 20%;
       &:hover {
         transition: 0.2s;
-        background: green;
-        color: black;
+        background: black;
+        color: #fafafa;
         div {
-          transition: 0.4s;
+          transition: 0.2s;
           transform: scale(1.2);
         }
       }

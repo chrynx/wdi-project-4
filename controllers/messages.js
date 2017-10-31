@@ -1,69 +1,31 @@
 const Message = require('../models/message');
-const User = require('../models/user');
 
-function messagesInbox(req, res) {
+function all(req, res, next) {
   Message
-    .find({ receiver: req.currentUser })
-    .populate('sender receiver')
-    .exec()
-    .then(receivedMessages => res.render('messages/inbox', {receivedMessages}))
-    .catch(err => res.render('error', {err}));
-}
-
-function messagesSent(req, res) {
-  Message
-    .find({ sender: req.currentUser })
-    .populate('sender receiver')
-    .exec()
-    .then(sentMessages => res.render('messages/sent', {sentMessages}))
-    .catch(err => res.render('error', {err}));
-}
-
-function messagesNew (req, res) {
-  User
     .find()
     .exec()
-    .then(users => {
-      users.sort(function(a, b){
-        if(a.username < b.username) return -1;
-        if(a.username > b.username) return 1;
-        return 0;
-      });
-      res.render('messages/new', {users});
-    })
-    .catch(err => res.render('error', {err}));
-
+    .then(messages => res.json(messages))
+    .catch(next);
 }
 
-function messagesCreate (req, res) {
-  req.body.sender = req.currentUser;
+function create (req, res, next) {
   Message
     .create(req.body)
-    .then(() => {
-      req.flash('success', 'Message sent');
-      res.redirect('/messages/sent');
-    })
-    .catch(err => res.render('error', {err}));
+    .then(res => res.status(201).json(res))
+    .catch(next);
 }
 
-function messagesDelete (req, res) {
+function destroy (req, res, next) {
   Message
     .findById(req.params.id)
     .exec()
-    .then(message => {
-      return message.remove();
-    })
-    .then( () => {
-      req.flash('success', 'Message deleted');
-      res.redirect('/messages/inbox');
-    })
-    .catch((err) => res.render('error', {err}));
+    .then(message => message.remove())
+    .then(res => res.status(204))
+    .catch(next);
 }
 
 module.exports = {
-  inbox: messagesInbox,
-  sent: messagesSent,
-  new: messagesNew,
-  create: messagesCreate,
-  delete: messagesDelete
+  all,
+  create,
+  destroy
 };

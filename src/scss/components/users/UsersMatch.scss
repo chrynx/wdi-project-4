@@ -3,8 +3,31 @@
   float: left;
   width: 80%;
   min-height: 90vh;
-  background: black;
-  color: green;
-  border-top: 2px solid darkGreen;
-  border-bottom: 2px solid darkGreen;
+  background: #fafafa;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  .card {
+    width: 30%;
+    background: rgba(200,200,200,0.5);
+    padding: 20px;
+    margin: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+    .image {
+    }
+    .details {
+      form {
+        display: flex;
+        flex-direction: column;
+        button {
+          background: #fafafa;
+          &:hover {
+            background: black;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+
 }

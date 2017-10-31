@@ -21,17 +21,20 @@ import UsersIndex from './components/users/UsersIndex';
 import UsersRequest from './components/users/UsersRequest';
 import UsersMatch from './components/users/UsersMatch';
 import UsersInbox from './components/users/UsersInbox';
-import UsersSent from './components/users/UsersSent';
 // --------------path "/users" END------------------
 
 class App extends React.Component {
+  logout = () => {
+    this.props.history.push('/');
+    Auth.logout();
+  }
   render() {
     return (
       <BrowserRouter>
         <div>
           <header>
             <Route exact path="/" component={LandingPageHeader} />
-            <ProtectedRoute component={Navbar} />
+            <ProtectedRoute logout={this.logout} component={Navbar} />
           </header>
           <div className="middle">
             <main>
@@ -40,7 +43,6 @@ class App extends React.Component {
               <ProtectedRoute path="/requests" component={UsersRequest} />
               <ProtectedRoute path="/matches" component={UsersMatch} />
               <ProtectedRoute path="/inbox" component={UsersInbox} />
-              <ProtectedRoute path="/sent" component={UsersSent} />
             </main>
             <aside>
               {!Auth.isAuthenticated() && <Route exact path="/" component={EmptyPage} /> }

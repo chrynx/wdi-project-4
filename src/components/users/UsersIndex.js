@@ -8,7 +8,6 @@ import Auth from '../misc/Auth';
 
 const customStyle = {
   overlay: {
-    transition: '0.5s',
     zIndex: 1000,
     height: '100vh',
     width: '100%',
@@ -20,7 +19,7 @@ const customStyle = {
     left: '25%',
     right: '25%',
     bottom: '25%',
-    border: '1px solid #ccc',
+    border: '5px solid #fafafa',
     background: 'black',
     overflow: 'hidden',
     WebkitOverflowScrolling: 'touch',
@@ -37,6 +36,8 @@ class UsersIndex extends React.Component {
     modalUser: {},
     profileAside: {},
     modalIsOpen: false,
+    buttonDisabled: 'none',
+    requestMessage: 'hidden',
     errors: {}
   }
   getModalUser = () => {
@@ -44,7 +45,10 @@ class UsersIndex extends React.Component {
       .get('/api/users', {
         headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
       })
-      .then(res => this.setState({ users: res.data }))
+      .then(res => {
+        const users = res.data.filter(user => user.id !== Auth.getPayload().userId);
+        this.setState({ users });
+      })
       .catch(err => console.log(err));
   }
   getProfileAside = () => {
@@ -65,6 +69,8 @@ class UsersIndex extends React.Component {
 
   closeModal = () => {
     this.setState({modalIsOpen: false});
+    this.setState({buttonDisabled: 'visible'});
+    this.setState({requestMessage: 'hidden'});
   }
   getUserInfo = id => {
     this.openModal();
@@ -78,15 +84,19 @@ class UsersIndex extends React.Component {
   getParent() {
     return document.querySelector('#UsersIndex');
   }
+  // =============
   sendRequest = () => {
-    this.state.modalUser.requests.push(this.state.profileAside);
+    this.setState({ buttonDisabled: 'hidden' });
+    this.setState({ requestMessage: 'visible' });
+
     Axios
-      .put(`/api/users/${this.state.modalUser.id}`, this.state.modalUser, {
-        headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
+      .post('/api/requests', { userId: Auth.getPayload().userId, requestId: this.state.modalUser.id }, {
+        headers: {'Authorization': 'Bearer ' + Auth.getToken() }
       })
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+      .then(res => console.log('RES', res))
+      .catch(err => console.log('ERR', err.response));
   }
+  // ===============
   render() {
     console.log('modalUser', this.state.modalUser);
     console.log('profileAside', this.state.profileAside.id);
@@ -100,8 +110,7 @@ class UsersIndex extends React.Component {
             >
               <div className="card">
                 <img src={user.image} />
-                <p>{user.firstname}</p>
-                <p>{user.age}</p>
+                <p>{user.username}</p>
               </div>
             </div>
           );
@@ -115,13 +124,12 @@ class UsersIndex extends React.Component {
           parentSelector={this.getParent}
         >
           <div className="modalContent">
-            <div className="modalContentLeft">
-              <img src={this.state.modalUser.image} />
+            <div style={{background: `url(${this.state.modalUser.image}) no-repeat`, backgroundSize: 'cover'}} className="modalContentLeft">
             </div>
             <div className="modalContentRight">
-              <h1>{this.state.modalUser.firstname} {this.state.modalUser.lastname}</h1>
-              <p>{this.state.modalUser.age}</p>
-              <button onClick={this.sendRequest}> Request Match </button>
+              <h1>{this.state.modalUser.username}</h1>
+              <button style={{ visibility: this.state.buttonDisabled }} onClick={this.sendRequest}> Request Match </button>
+              <p style={{ visibility: this.state.requestMessage }}>Request Sent!</p>
             </div>
           </div>
         </Modal>

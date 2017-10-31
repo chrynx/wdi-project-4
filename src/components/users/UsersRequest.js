@@ -10,29 +10,50 @@ class UsersRequest extends React.Component {
   }
   componentDidMount() {
     Axios
-      .get(`/api/users/${Auth.getPayload().userId}`, {
+      .get(`/api/requests/${Auth.getPayload().userId}`, {
         headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
       })
-      .then(res => this.setState({ requests: res.data.requests }))
+      .then(res => {
+        const requests = res.data.filter(request => request.status === 'pending');
+        this.setState({ requests });
+      })
       .catch(err => console.log(err));
   }
+  yesButton = id => {
+    console.log(id);
+    console.log('yes');
+    Axios
+      .post('/api/requests', { userId: Auth.getPayload().userId, requestId: id }, {
+        headers: {'Authorization': 'Bearer ' + Auth.getToken() }
+      })
+      .then(res => console.log('RES', res))
+      .catch(err => console.log('ERR', err.response));
+  }
+  noButton = () => {
+    console.log('no');
+  }
   render() {
-    console.log(this.state.requests[0]);
+    console.log(this.state.requests);
     return (
       <section className="UsersRequest">
-        {this.state.requests.map((request, i) => {
-          let user = {};
-          Axios
-            .get(`/api/users/${request}`, {
-              headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
-            })
-            .then(res => {
-              return user = res.data;
-            })
-            .catch(err => console.log(err));
+        {!this.state.requests && <p>Requests loading...</p>}
+        {this.state.requests && this.state.requests.map((request, i) => {
           return (
             <div key={i}>
-              <p>{user.firstname}</p>
+              <div className="requestDiv">
+                <div className="requestLeft">
+                  <img src={request.friend.image}/>
+                </div>
+                <div className="requestMiddle">
+                  <p>First Name: <span>{request.friend.firstname}</span></p>
+                  <p>Last Name: <span>{request.friend.lastname}</span></p>
+                  <p>Age: <span>{request.friend.age}</span></p>
+                </div>
+                <div className="requestRight">
+                  <button className="yesButton" onClick={() => this.yesButton(request.friend.id)} >YES</button>
+                  <button className="noButton" onClick={this.noButton} >NO</button>
+                </div>
+              </div>
             </div>
           );
         })}

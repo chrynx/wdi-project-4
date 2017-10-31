@@ -1,10 +1,10 @@
 .UsersInbox {
   display: flex;
+  flex-direction: column;
   float: left;
   width: 80%;
   min-height: 90vh;
-  background: black;
-  color: green;
-  border-top: 2px solid darkGreen;
-  border-bottom: 2px solid darkGreen;
+  background: #fafafa;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
 }

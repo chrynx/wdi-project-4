@@ -3494,6 +3494,10 @@ mongodb@2.2.33:
     mongodb-core "2.1.17"
     readable-stream "2.2.7"
 
+mongoose-friends-plugin@^0.7.3:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/mongoose-friends-plugin/-/mongoose-friends-plugin-0.7.3.tgz#f7ceb9dac5fba4c1ee2ad75c64a58b14b0259add"
+
 mongoose-unique-validator@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/mongoose-unique-validator/-/mongoose-unique-validator-1.0.6.tgz#fab31e68c1a5ba6f5b05da8e93842db55eb0a3b1"

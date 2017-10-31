@@ -1,10 +1,56 @@
 .UsersRequest {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   float: left;
   width: 80%;
-  min-height: 90vh;
-  background: black;
-    color: green;
-  border-top: 2px solid darkGreen;
-  border-bottom: 2px solid darkGreen;
+  height: 90vh;
+  overflow-y: scroll;
+  background: #fafafa;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+
+  .requestDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid black;
+    .requestLeft {
+      img {
+      }
+    }
+    .requestMiddle {
+      p {
+        span {
+          float: right;
+        }
+      }
+    }
+    .requestRight {
+      button {
+        border: 2px solid black;
+        border-radius: 50%;
+        background-color: #fafafa;
+        margin: 5px;
+        height: 5vh;
+        width: 5vh;
+      }
+      .yesButton {
+        &:focus {
+          transition: 0.2s;
+          outline: none;
+          background-color: green;
+          color: black;
+        }
+      }
+      .noButton {
+        &:focus {
+          transition: 0.2s;
+          outline: none;
+          background-color: red;
+          color: black;
+        }
+      }
+    }
+  }
 }

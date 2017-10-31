@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const friendsPlugin = require('mongoose-friends-plugin');
 
 const userSchema = mongoose.Schema({
   firstname: { type: String, writable: true, required: 'Your first name is required' },
@@ -10,11 +11,9 @@ const userSchema = mongoose.Schema({
   username: { type: String, writable: true, unique: 'Username has already been taken', required: 'A username is required' },
   image: { type: String, writable: true, required: 'An image is required' },
   email: { type: String, writable: true, unique: 'Email has already been taken', required: 'An e-mail address is required' },
-  password: { type: String, writable: true, required: 'A password is required' },
-  requests: [ {type: String} ],
-  matches: [{type: String}]
+  password: { type: String, writable: true, required: 'A password is required' }
 });
-
+userSchema.plugin(friendsPlugin({ pathName: 'matches' }));
 userSchema
   .virtual('passwordConfirmation')
   .set(function setPassWordConfirmation(passwordConfirmation) {
