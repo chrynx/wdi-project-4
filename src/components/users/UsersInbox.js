@@ -13,6 +13,7 @@ class UsersInbox extends React.Component {
       sender: '',
       receiver: ''
     },
+    errors: {},
     form: 'hidden',
     inbox: [],
     sent: [],
@@ -64,8 +65,10 @@ class UsersInbox extends React.Component {
     };
 
     Axios
-      .post('/api/messages', message)
-      .catch(err => console.log(err));
+      .post('/api/messages', message, {
+        headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
+      })
+      .catch(err => this.setState({ errors: err.response.data.errors}));
   }
   render() {
     return(
@@ -100,6 +103,7 @@ class UsersInbox extends React.Component {
                   handleSubmit={this.handleSubmit}
                   message={this.state.message}
                   friend={message.sender}
+                  errors={this.state.errors}
                 />
               </div>
             );

@@ -41,13 +41,13 @@ class App extends React.Component {
             <main>
               <Route exact path="/" component={LandingPage} />
               <ProtectedRoute exact path="/users" component={UsersIndex} />
-              <ProtectedRoute path="/users/:id" component={ProfileEdit} />
+              <ProtectedRoute exact path="/users/:id" component={ProfileEdit} />
               <ProtectedRoute exact path="/requests" component={UsersRequest} />
               <ProtectedRoute exact path="/matches" component={UsersMatch} />
               <ProtectedRoute exact path="/inbox" component={UsersInbox} />
+              <ProtectedRoute component={EmptyPage} />
             </main>
             <aside>
-              {!Auth.isAuthenticated() && <Route exact path="/" component={EmptyPage} /> }
               <ProtectedRoute component={ProfileAside} />
             </aside>
           </div>

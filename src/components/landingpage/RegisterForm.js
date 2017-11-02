@@ -8,8 +8,7 @@ const LoginForm = ({ handleChange, handleSubmit, user, style, errors }) => {
     <div className="RegisterForm">
       <form style={{ visibility: style }} onSubmit={handleSubmit}>
         <h2>Register</h2>
-
-
+        
         <div className={errors.firstname ? 'form-group has-error' : 'form-group'}>
           <label htmlFor="firstname"> First Name: </label>
           <input

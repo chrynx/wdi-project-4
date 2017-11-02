@@ -14,13 +14,13 @@ router.route('/users')
 
 router.route('/users/:id')
   .get(secureRoute, users.show)
-  .put(imageUpload, users.update)
+  .put(secureRoute, imageUpload, users.update)
   .delete(secureRoute, users.delete);
 
 // ====================================================================
 router.route('/messages')
   .get(messages.all)
-  .post(messages.create);
+  .post(secureRoute, messages.create);
 
 router.route('/messages/:messageId')
   .delete(messages.destroy);

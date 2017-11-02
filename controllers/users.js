@@ -33,9 +33,10 @@ function usersDelete(req,res,next) {
     .findById(req.params.id)
     .exec()
     .then(user => user.remove())
+    .then(() => res.sendStatus(204))
     .catch(next);
 }
-function usersUpdatePassword (req, res) {
+function usersUpdatePassword (req, res, next) {
   User
     .findById(req.params.id)
     .exec()
@@ -43,11 +44,7 @@ function usersUpdatePassword (req, res) {
       user = Object.assign(user, req.body);
       return user.save();
     })
-    .then((user) => {
-      req.flash('success', 'Your password has been changed');
-      res.redirect(`/users/${user.id}`);
-    })
-    .catch(err => res.render('error', {err}));
+    .catch(next);
 }
 
 

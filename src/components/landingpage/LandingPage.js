@@ -28,7 +28,7 @@ class LandingPage extends Component {
       <section className="LandingPage">
         <div className="forms">
           <Login style={this.state.loginStyle}/>
-          <div className="question">Would you like to <button onClick={this.showRegister}>Register</button>? Or would you like to <button onClick={this.showLogin}>Log in</button>?</div>
+          <div className="question">Would you like to<button onClick={this.showRegister}>Register</button>? Or would you like to <button onClick={this.showLogin}>Log in</button>?</div>
           <Register style={this.state.registerStyle} showLogin={this.showLogin}/>
         </div>
       </section>

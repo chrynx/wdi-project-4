@@ -13,8 +13,11 @@ function create (req, res, next) {
   Message
     .create(req.body)
     .then(message => {
+      return Message
+        .populate(message, { path: 'sender receiver' });
+    })
+    .then(message => {
       res.status(201).json(message);
-      message.save();
     })
     .catch(next);
 }

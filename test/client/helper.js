@@ -35,6 +35,9 @@ window.localStorage = (function(){
   };
 })();
 
+window.FileReader = function() {
+};
+
 function copyProps(src, target) {
   const props = Object.getOwnPropertyNames(src)
     .filter(prop => typeof target[prop] === 'undefined')
@@ -45,6 +48,7 @@ function copyProps(src, target) {
 global.window = window;
 global.document = window.document;
 global.localStorage = window.localStorage;
+global.FileReader = window.FileReader;
 global.navigator = {
   userAgent: 'node.js'
 };

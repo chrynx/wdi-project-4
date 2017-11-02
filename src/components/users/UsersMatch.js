@@ -14,9 +14,9 @@ class UsersMatch extends React.Component {
       receiver: ''
     },
     form: 'hidden',
-    messageSent: 'hidden',
     matches: [],
-    users: []
+    users: [],
+    errors: {}
   }
   getMatches = () => {
     Axios
@@ -39,7 +39,6 @@ class UsersMatch extends React.Component {
   handleSubmit = (e, friend) => {
     e.preventDefault();
     this.setState({ form: 'hidden' });
-    this.setState({ messageSent: 'visible' });
     console.log('form submitted');
     const message = {
       ...this.state.message,
@@ -48,16 +47,16 @@ class UsersMatch extends React.Component {
     };
 
     Axios
-      .post('/api/messages', message)
-      .catch(err => console.log(err));
+      .post('/api/messages', message, {
+        headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
+      })
+      .catch(err => this.setState({ errors: err.response.data.errors}));
   }
   showForm =() => {
     this.setState({ form: 'visible' });
-    this.setState({ messageSent: 'hidden' });
   }
   cancelForm =() => {
     this.setState({ form: 'hidden' });
-    this.setState({ messageSent: 'hidden' });
   }
   render() {
     return(
@@ -82,8 +81,8 @@ class UsersMatch extends React.Component {
                   message={this.state.message}
                   friend={match.friend}
                   close={this.cancelForm}
+                  errors={this.state.errors}
                 />
-                <p style={{ visibility: this.state.messageSent }}>Message sent!!</p>
               </div>
             </div>
           );
