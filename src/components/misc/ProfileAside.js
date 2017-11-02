@@ -1,16 +1,12 @@
 import React from 'react';
 import Axios from 'axios';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import '../../scss/components/misc/ProfileAside.scss';
 import Auth from './Auth';
 
 class ProfileAside extends React.Component {
     state = {
       user: {}
-    }
-    logout = () => {
-      Auth.logout();
-      this.props.history.push('/');
     }
     componentDidMount() {
       Axios
@@ -23,11 +19,9 @@ class ProfileAside extends React.Component {
     render() {
       return (
         <section className="ProfileAside">
-          <div>
-            <button onClick={this.logout}>Logout</button>
-          </div>
+          <Link to={'/users/' + Auth.getPayload().userId}> Edit Profile </Link>
           <div className="profileAsideInfo">
-            <img src={this.state.user.image}/>
+            <img src={this.state.user.imageSRC}/>
             <h3>First Name: </h3>
             <p>{this.state.user.firstname}</p>
             <h3>Last Name: </h3>

@@ -14,7 +14,7 @@ class Navbar extends React.Component {
           <Link to="/users"><div>Users</div></Link>
           <Link to="/requests"><div>Requests</div></Link>
           <Link to="/matches"><div>Matches</div></Link>
-          <Link to="/inbox"><div>Inbox</div></Link>
+          <Link to="/inbox"><div>Messages</div></Link>
           <a href="/" onClick={this.logout}><div>Logout</div></a>
         </div>
       </section>

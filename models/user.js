@@ -1,17 +1,19 @@
+const s3 = require('../lib/s3');
+
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const friendsPlugin = require('mongoose-friends-plugin');
 
 const userSchema = mongoose.Schema({
-  firstname: { type: String, writable: true, required: 'Your first name is required' },
-  lastname: { type: String, writable: true, required: 'Your last name is required' },
-  age: {type: Number, writable: true, required: 'Your age is required' },
-  gender: {type: String, writable: true, required: 'Your gender is required'},
-  preferredGender: { type: String, writable: true, required: 'Your preferred gender is required'},
-  username: { type: String, writable: true, unique: 'Username has already been taken', required: 'A username is required' },
-  image: { type: String, writable: true, required: 'An image is required' },
-  email: { type: String, writable: true, unique: 'Email has already been taken', required: 'An e-mail address is required' },
-  password: { type: String, writable: true, required: 'A password is required' }
+  firstname: { type: String, required: 'Your first name is required' },
+  lastname: { type: String, required: 'Your last name is required' },
+  age: {type: Number, required: 'Your age is required' },
+  gender: {type: String, required: 'Your gender is required'},
+  preferredGender: { type: String, required: 'Your preferred gender is required'},
+  username: { type: String, unique: 'Username has already been taken', required: 'A username is required' },
+  image: { type: String },
+  email: { type: String, unique: 'Email has already been taken', required: 'An e-mail address is required' },
+  password: { type: String, required: 'A password is required' }
 });
 userSchema.plugin(friendsPlugin({ pathName: 'matches' }));
 userSchema
@@ -36,5 +38,36 @@ userSchema.pre('save', function hashPassword(next) {
 userSchema.methods.validatePassword = function validatePassword(password) {
   return bcrypt.compareSync(password, this.password);
 };
+
+// ------------------ image -----------------------
+userSchema
+  .path('image')
+  .set(function getPreviousImage(image) {
+    this._image = this.image;
+    return image;
+  });
+
+userSchema
+  .virtual('imageSRC')
+  .get(function getImageSRC() {
+    if(!this.image) return null;
+    if(this.image.match(/^http/)) return this.image;
+    return `https://s3-eu-west-1.amazonaws.com/${process.env.AWS_BUCKET_NAME}/${this.image}`;
+  });
+
+userSchema.pre('save', function checkPreviousImage(next) {
+  if(this.isModified('image') && this._image && !this._image.match(/^http/)) {
+    return s3.deleteObject({ Key: this._image }, next);
+  }
+  next();
+});
+
+userSchema.pre('remove', function removeImage(next) {
+  if(this.image && !this.image.match(/^http/)) {
+    return s3.deleteObject({ Key: this.image }, next);
+  }
+  next();
+});
+// -----------------------------------------
 
 module.exports = mongoose.model('User', userSchema);

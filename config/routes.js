@@ -4,6 +4,8 @@ const secureRoute = require('../lib/secureRoute');
 const users = require('../controllers/users');
 const requests = require('../controllers/requests');
 const messages = require('../controllers/messages');
+const imageUpload = require('../lib/imageUpload');
+
 
 // ===================================================================
 // ===================================================================
@@ -12,7 +14,8 @@ router.route('/users')
 
 router.route('/users/:id')
   .get(secureRoute, users.show)
-  .put(users.update);
+  .put(imageUpload, users.update)
+  .delete(secureRoute, users.delete);
 
 // ====================================================================
 router.route('/messages')
@@ -23,7 +26,7 @@ router.route('/messages/:messageId')
   .delete(messages.destroy);
 // ====================================================================
 router.route('/register')
-  .post(auth.register);
+  .post(imageUpload, auth.register);
 
 router.route('/login')
   .post(auth.login);

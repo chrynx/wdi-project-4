@@ -14,6 +14,7 @@ import Auth from './components/misc/Auth';
 // ----------landing page components------------
 import LandingPageHeader from './components/landingpage/LandingPageHeader';
 import LandingPage from './components/landingpage/LandingPage';
+import ProfileEdit from './components/misc/ProfileEdit';
 // -------------landing page components END-------------
 
 // --------------path "/users"------------------
@@ -39,10 +40,11 @@ class App extends React.Component {
           <div className="middle">
             <main>
               <Route exact path="/" component={LandingPage} />
-              <ProtectedRoute path="/users" component={UsersIndex} />
-              <ProtectedRoute path="/requests" component={UsersRequest} />
-              <ProtectedRoute path="/matches" component={UsersMatch} />
-              <ProtectedRoute path="/inbox" component={UsersInbox} />
+              <ProtectedRoute exact path="/users" component={UsersIndex} />
+              <ProtectedRoute path="/users/:id" component={ProfileEdit} />
+              <ProtectedRoute exact path="/requests" component={UsersRequest} />
+              <ProtectedRoute exact path="/matches" component={UsersMatch} />
+              <ProtectedRoute exact path="/inbox" component={UsersInbox} />
             </main>
             <aside>
               {!Auth.isAuthenticated() && <Route exact path="/" component={EmptyPage} /> }

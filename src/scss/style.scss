@@ -1,5 +1,7 @@
 * {
   box-sizing: border-box;
+  font-family: 'Tillana', cursive;
+  font-weight: 100;
 }
 
 img {
@@ -9,16 +11,33 @@ img {
 ::-webkit-scrollbar {
     display: none;
 }
-
+hr {
+   width: 100%;
+   padding: 1px;
+   background-color: black;
+}
 body, html {
-  background-color: #fafafa;
   height: 100vh;
   overflow: hidden;
   margin: 0;
   padding: 0;
 }
+div.drag-drop {
+  input[type=file] {
+    display: none;
+  }
 
+  div.dropzone {
+    height: 200px;
+    width: 200px;
+    background-color: #e1e2dc;
+    border: 2px solid black;
+    background-size: cover;
+  }
+}
 .middle {
+  background: #e1e2dc;
+  overflow: scroll;
   border: 2px solid black;
   width: 100%;
 }
@@ -27,5 +46,6 @@ footer {
   height: 5vh;
   display: flex;
   justify-content: space-around;
-  background: #fafafa;
+  background: rgba(10,10,10,0.9);
+  color: #e1e2dc;
 }

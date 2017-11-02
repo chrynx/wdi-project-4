@@ -4,7 +4,7 @@ import '../../scss/components/landingpage/LandingPageHeader.scss';
 const LandingPage = () => {
   return (
     <section className="LandingPageHeader">
-      <p>Datr</p>
+      <p>Generic Dating Website</p>
       <p></p>
       <p></p>
       <p></p>

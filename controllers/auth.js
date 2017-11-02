@@ -3,6 +3,7 @@ const { secret } = require('../config/environment');
 const User = require('../models/user');
 
 function register(req, res, next) {
+  if(req.file) req.body.image = req.file.filename;
   User
     .create(req.body)
     .then(() => res.json({ message: 'Registration successful' }))

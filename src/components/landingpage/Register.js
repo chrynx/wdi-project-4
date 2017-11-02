@@ -16,14 +16,17 @@ class Register extends React.Component {
       username: '',
       email: '',
       password: '',
-      passwordConfirmation: ''
+      passwordConfirmation: '',
+      base64: ''
     },
+    style: '',
     errors: {}
   };
 
   componentDidMount() {
-    console.log(this.props);
+    this.setState({ style: this.props.style });
   }
+
   handleChange = ({ target: { name, value }}) => {
     const user = Object.assign({}, this.state.user, { [name]: value });
     this.setState({ user });
@@ -32,13 +35,14 @@ class Register extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     Axios.post('/api/register', this.state.user)
-      .then()
-      .catch(err => console.log(err));
+      .then(() => this.props.showLogin())
+      .catch((err) => this.setState({ errors: err.response.data.errors }));
   }
 
   render() {
     return (
       <RegisterForm
+        style={this.props.style}
         user={this.state.user}
         handleChange={this.handleChange}
         handleSubmit={this.handleSubmit}

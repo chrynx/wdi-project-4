@@ -3,8 +3,110 @@
   flex-direction: column;
   float: left;
   width: 80%;
-  min-height: 90vh;
-  background: #fafafa;
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
+  height: 90vh;
+  oveflow-y: scroll;
+  background: #e1e2dc;
+  button {
+    width: 50%;
+    background: rgba(10,10,10,0.9);
+    color: #e1e2dc;
+    &:focus {
+      outline: none;
+      background: #e1e2dc;
+      color: rgba(10,10,10,0.9);
+      border: 2px solid rgba(10,10,10,0.9);
+    }
+  }
+  .inbox {
+    margin-top: 10px;
+    .inboxMessage {
+      border: 2px solid rgba(10,10,10,0.9);
+      border-top: none;
+      border-bottom: none;
+      width: 90%;
+      margin: 0 auto;
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      div {
+        width: 15%;
+        margin-left: 5px;
+        img {
+          height: 100%;
+          width: 100%;
+        }
+      }
+      div {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        h3 {
+          margin-left: 10px;
+          border-bottom: 2px solid rgba(10,10,10,0.9);
+        }
+        blockquote {
+          border: 1px solid rgba(10,10,10,0.1);
+          background: rgba(200,200,200,0.5);
+          background-blend-mode: darken;
+          padding: 10px;
+        }
+        small {
+          margin-left: 10px;
+          align-self: flex-end;
+        }
+      }
+      div {
+        align-self: flex-end;
+        button {
+          background: rgba(10,10,10,0.9);
+          color: #e1e2dc;
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+    }
+  }
+  .sent {
+    margin-top: 10px;
+    .sentMessage {
+      border: 2px solid rgba(10,10,10,0.9);
+      border-top: none;
+      border-bottom: none;
+      width: 90%;
+      margin: 0 auto;
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      div {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        h3 {
+          margin-left: 10px;
+          border-bottom: 2px solid rgba(10,10,10,0.9);
+        }
+        blockquote {
+          border: 1px solid rgba(10,10,10,0.1);
+          background: rgba(200,200,200,0.5);
+          background-blend-mode: darken;
+          padding: 10px;
+        }
+        small {
+          margin-left: 10px;
+          align-self: flex-end;
+        }
+      }
+      div {
+        width: 15%;
+        margin-right: 5px;
+        img {
+          height: 100%;
+          width: 100%;
+        }
+      }
+    }
+  }
 }

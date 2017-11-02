@@ -42,7 +42,7 @@ class UsersRequest extends React.Component {
             <div key={i}>
               <div className="requestDiv">
                 <div className="requestLeft">
-                  <img src={request.friend.image}/>
+                  <img src={request.friend.imageSRC}/>
                 </div>
                 <div className="requestMiddle">
                   <p>First Name: <span>{request.friend.firstname}</span></p>

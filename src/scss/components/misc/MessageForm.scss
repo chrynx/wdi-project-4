@@ -1,0 +1,32 @@
+.MessageForm {
+  form {
+    z-index: 10000;
+    position: fixed;
+    left: 100px;
+    top: 50%;
+    height: 20vh;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    input {
+    }
+    button {
+      background: #e1e2dc;
+      &:hover {
+        background: rgba(10,10,10,0.9);
+        color: #e1e2dc;
+      }
+    }
+  }
+  .formButton {
+    background: #e1e2dc;
+    &:hover {
+      background: rgba(10,10,10,0.9);
+      color: #e1e2dc;
+    }
+    z-index: 10000;
+    position: absolute;
+    left: 50%;
+    top: 60%;
+  }
+}

@@ -17,17 +17,24 @@ function usersShow(req, res) {
 }
 
 function usersUpdate (req, res, next) {
+  if(req.file) req.body.image = req.file.filename;
   User
     .findById(req.params.id)
     .exec()
     .then(user => {
       user = Object.assign(user, req.body);
-      return user.save();
+      user.save();
+      res.send(user);
     })
-
     .catch(next);
 }
-
+function usersDelete(req,res,next) {
+  User
+    .findById(req.params.id)
+    .exec()
+    .then(user => user.remove())
+    .catch(next);
+}
 function usersUpdatePassword (req, res) {
   User
     .findById(req.params.id)
@@ -67,6 +74,7 @@ module.exports = {
   index: usersIndex,
   show: usersShow,
   update: usersUpdate,
+  delete: usersDelete,
   updatePassword: usersUpdatePassword,
   // ---------------------------------------------------------
   // EMAIL VALIDATION

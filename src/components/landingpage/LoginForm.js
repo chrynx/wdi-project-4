@@ -1,12 +1,12 @@
 import React from 'react';
 import '../../scss/components/landingpage/LoginForm.scss';
 
-const LoginForm = ({ handleChange, handleSubmit }) => {
+const LoginForm = ({ handleChange, handleSubmit, style, error }) => {
   return(
     <div className="LoginForm">
-      <fieldset>
-        <legend> Log In </legend>
-        <form onSubmit={handleSubmit}>
+      <form style={{ visibility: style}} onSubmit={handleSubmit}>
+        <h2>Login</h2>
+        <div className='form-group'>
           <label htmlFor="email"> E-mail: </label>
           <input
             onChange={handleChange}
@@ -14,7 +14,9 @@ const LoginForm = ({ handleChange, handleSubmit }) => {
             name="email"
             placeholder="Enter your e-mail here"
           />
+        </div>
 
+        <div className='form-group'>
           <label htmlFor="password"> Password: </label>
           <input
             onChange={handleChange}
@@ -22,9 +24,12 @@ const LoginForm = ({ handleChange, handleSubmit }) => {
             name="password"
             placeholder="Enter your password here"
           />
-          <button>Log In</button>
-        </form>
-      </fieldset>
+        </div>
+        {error && <div>
+          <small className="has-error">{error}</small>
+        </div>}
+        <button>Log In</button>
+      </form>
     </div>
   );
 };

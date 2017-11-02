@@ -1,14 +1,16 @@
 .modalContent {
   display: flex;
   justify-content: space-around;
-  align-items: center;
   height: 100%;
-  color: white;
   .modalContentLeft {
     width: 50%;
     height: 100%;
   }
   .modalContentRight {
-    max-width: 50%;
+    color: #e1e2dc;
+    button {
+      height: auto;
+      background: white;
+    }
   }
 }

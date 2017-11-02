@@ -36,20 +36,27 @@ class UsersMatch extends React.Component {
     const message = Object.assign({}, this.state.message, { [name]: value });
     this.setState({ message });
   }
-  handleSubmit = (e) => {
+  handleSubmit = (e, friend) => {
     e.preventDefault();
     this.setState({ form: 'hidden' });
     this.setState({ messageSent: 'visible' });
     console.log('form submitted');
-    // Axios.post('/api/login', this.state.message)
-    //   .then((res) => {
-    //     Auth.setToken(res.data.token);
-    //     this.props.history.push('/users');
-    //   })
-    //   .catch(() => this.setState({ error: 'Invalid credentials' }));
+    const message = {
+      ...this.state.message,
+      sender: Auth.getPayload().userId,
+      receiver: friend.id
+    };
+
+    Axios
+      .post('/api/messages', message)
+      .catch(err => console.log(err));
   }
   showForm =() => {
     this.setState({ form: 'visible' });
+    this.setState({ messageSent: 'hidden' });
+  }
+  cancelForm =() => {
+    this.setState({ form: 'hidden' });
     this.setState({ messageSent: 'hidden' });
   }
   render() {
@@ -59,7 +66,7 @@ class UsersMatch extends React.Component {
           return (
             <div className="card" key={i}>
               <div className="image">
-                <img src={match.friend.image}/>
+                <img src={match.friend.imageSRC}/>
               </div>
               <div className="details">
                 <h2>Username: {match.friend.username}</h2>
@@ -69,12 +76,12 @@ class UsersMatch extends React.Component {
                 <p>E-mail: {match.friend.email}</p>
                 <button onClick={this.showForm}>Message</button>
                 <MessageForm
-                  sender={Auth.getPayload().userId}
-                  receiver={match.friend.id}
                   style={this.state.form}
                   handleChange={this.handleChange}
                   handleSubmit={this.handleSubmit}
                   message={this.state.message}
+                  friend={match.friend}
+                  close={this.cancelForm}
                 />
                 <p style={{ visibility: this.state.messageSent }}>Message sent!!</p>
               </div>
