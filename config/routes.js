@@ -19,11 +19,11 @@ router.route('/users/:id')
 
 // ====================================================================
 router.route('/messages')
-  .get(messages.all)
+  .get(messages.index)
   .post(secureRoute, messages.create);
 
 router.route('/messages/:messageId')
-  .delete(messages.destroy);
+  .delete(messages.delete);
 // ====================================================================
 router.route('/register')
   .post(imageUpload, auth.register);

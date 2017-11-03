@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const friendsPlugin = require('mongoose-friends-plugin');
 
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
   firstname: { type: String, required: 'Your first name is required' },
   lastname: { type: String, required: 'Your last name is required' },
   age: {type: Number, required: 'Your age is required' },

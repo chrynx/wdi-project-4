@@ -1,6 +1,6 @@
 const Message = require('../models/message');
 
-function all(req, res, next) {
+function messagesIndex(req, res, next) {
   Message
     .find()
     .populate( 'sender receiver' )
@@ -9,7 +9,7 @@ function all(req, res, next) {
     .catch(next);
 }
 
-function create (req, res, next) {
+function messagesCreate (req, res, next) {
   Message
     .create(req.body)
     .then(message => {
@@ -22,16 +22,17 @@ function create (req, res, next) {
     .catch(next);
 }
 
-function destroy (req, res, next) {
+function messagesDelete (req, res, next) {
   Message
     .findById(req.params.id)
     .exec()
     .then(message => message.remove())
+    .then(() => res.sendStatus(204))
     .catch(next);
 }
 
 module.exports = {
-  all,
-  create,
-  destroy
+  index: messagesIndex,
+  create: messagesCreate,
+  delete: messagesDelete
 };

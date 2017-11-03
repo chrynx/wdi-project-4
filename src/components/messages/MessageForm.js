@@ -5,7 +5,7 @@ const MessageForm = ({ handleChange, handleSubmit, message, style, friend, close
   return (
     <div  className="MessageForm" style={{ visibility: style }}>
       <form onSubmit={(e) => handleSubmit(e, friend)}>
-        <div className={ errors.subject ? 'form-group has-error' : 'form-group'}>
+        <div className={ errors.subject ? 'has-error' : ''}>
           <label htmlFor="subject">Message Subject</label>
           <input
             onChange={handleChange}
@@ -16,7 +16,7 @@ const MessageForm = ({ handleChange, handleSubmit, message, style, friend, close
           />
           {errors.subject && <small className="has-error">{errors.subject}</small>}
         </div>
-        <div className={ errors.text ? 'form-group has-error' : 'form-group'}>
+        <div className={ errors.text ? 'has-error': ''}>
           <label htmlFor="text"> Message Content</label>
           <textarea
             onChange={handleChange}

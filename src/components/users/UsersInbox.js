@@ -18,7 +18,6 @@ class UsersInbox extends React.Component {
     inbox: [],
     sent: [],
     inboxStyle: 'visible',
-    messageSent: 'hidden',
     sentStyle: 'hidden',
     isInbox: null,
     isSent: true
@@ -47,7 +46,9 @@ class UsersInbox extends React.Component {
   }
   showForm =() => {
     this.setState({ form: 'visible' });
-    this.setState({ messageSent: 'hidden' });
+  }
+  cancelForm =() => {
+    this.setState({ form: 'hidden' });
   }
   handleChange = ({ target: { name, value }}) => {
     const message = Object.assign({}, this.state.message, { [name]: value });
@@ -70,6 +71,16 @@ class UsersInbox extends React.Component {
       })
       .catch(err => this.setState({ errors: err.response.data.errors}));
   }
+  deleteMessage = id => {
+    console.log(id);
+    Axios
+      .delete(`/api/messages/${id}`)
+      .then(() => {
+        this.state.inbox.filter(message => message.id !== id);
+        this.state.sent.filter(message => message.id !== id);
+      })
+      .catch(err => console.log(err));
+  }
   render() {
     return(
       <section className="UsersInbox">
@@ -84,6 +95,15 @@ class UsersInbox extends React.Component {
           {this.state.inbox && this.state.inbox.map(message => {
             return (
               <div className="inboxMessage" key={message.id}>
+                <MessageForm
+                  style={this.state.form}
+                  handleChange={this.handleChange}
+                  handleSubmit={this.handleSubmit}
+                  message={this.state.message}
+                  friend={message.sender}
+                  errors={this.state.errors}
+                  close={this.cancelForm}
+                />
                 <div>
                   <img src={message.sender.imageSRC}/>
                 </div>
@@ -92,19 +112,10 @@ class UsersInbox extends React.Component {
                   <blockquote>{message.text}</blockquote>
                   <small>Sent by: <em>{message.sender.username}</em></small>
                 </div>
-                <div></div>
                 <div>
                   <button onClick={this.showForm}>Reply</button>
-                  <p style={{ visibility: this.state.messageSent }}>Message sent!!</p>
+                  <button onClick={() => this.deleteMessage(message.id)}>Delete</button>
                 </div>
-                <MessageForm
-                  style={this.state.form}
-                  handleChange={this.handleChange}
-                  handleSubmit={this.handleSubmit}
-                  message={this.state.message}
-                  friend={message.sender}
-                  errors={this.state.errors}
-                />
               </div>
             );
           })
@@ -117,6 +128,9 @@ class UsersInbox extends React.Component {
           {this.state.sent && this.state.sent.map(message => {
             return (
               <div className="sentMessage" key={message.id}>
+                <div>
+                  <button onClick={() => this.deleteMessage(message.id)}>Delete</button>
+                </div>
                 <div>
                   <h3>{message.subject}</h3>
                   <blockquote>{message.text}</blockquote>

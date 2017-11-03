@@ -42,7 +42,6 @@ describe('GET /api/messages', () => {
           sender: users[1],
           receiver: users[0]
         }];
-
         Message.create(messageData);
       });
     done();

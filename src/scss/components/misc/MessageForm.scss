@@ -1,24 +1,22 @@
-// .MessageForm {
-//   position: absolute;
-//   top: 40%;
-//   left: 40%;
-//   background: rgba(10,10,10,0.9);
-//   padding: 10px;
-//   display: flex;
-//   flex-direction: column;
-//   button {
-//     width: 100%;
-//   }
-//   label {
-//     margin-right: 50px;
-//     color: white;
-//   }
-//   input {
-//     width: 100%;
-//   }
-//   textarea {
-//     width: 100%;
-//     resize: none;
-//     height: 10vh;
-//   }
-// }
+.MessageForm {
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  width: 500px;
+  background: rgba(10,10,10,0.9);
+  padding: 10px;
+  div {
+    button {
+    }
+    label {
+      margin-right: 50px;
+      color: white;
+    }
+    input {
+    }
+    textarea {
+      resize: none;
+      height: 10vh;
+    }
+  }
+}

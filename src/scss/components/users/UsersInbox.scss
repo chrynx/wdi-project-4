@@ -23,7 +23,6 @@
       border: 2px solid rgba(10,10,10,0.9);
       border-top: none;
       border-bottom: none;
-      width: 90%;
       margin: 0 auto;
       margin-top: 10px;
       display: flex;
@@ -31,13 +30,13 @@
       align-items: center;
       div {
         margin-left: 5px;
-        max-height: 20vh;
         img {
-          max-height: 20vh;
+          max-height: 250px;
+          max-width: 250px;
         }
       }
       div {
-        width: auto;
+        max-height: 250px;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -54,8 +53,8 @@
         }
       }
       div {
-        align-self: flex-end;
         button {
+          width: 100px;
           background: rgba(10,10,10,0.9);
           color: #e1e2dc;
           &:focus {
@@ -65,19 +64,28 @@
       }
     }
   }
+
   .sent {
     margin-top: 10px;
     .sentMessage {
       border: 2px solid rgba(10,10,10,0.9);
       border-top: none;
       border-bottom: none;
-      width: 90%;
       margin: 0 auto;
       margin-top: 10px;
       display: flex;
+      flex-direction: row-reverse;
       justify-content: space-between;
       align-items: center;
       div {
+        margin-left: 5px;
+        img {
+          max-height: 250px;
+          max-width: 250px;
+        }
+      }
+      div {
+        max-height: 250px;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -94,10 +102,13 @@
         }
       }
       div {
-        margin-right: 5px;
-        max-height: 20vh;
-        img {
-          max-height: 20vh;
+        button {
+          width: 100px;
+          background: rgba(10,10,10,0.9);
+          color: #e1e2dc;
+          &:focus {
+            outline: none;
+          }
         }
       }
     }

@@ -29,27 +29,34 @@ class Register extends React.Component {
 
   handleChange = ({ target: { name, value }}) => {
     const user = Object.assign({}, this.state.user, { [name]: value });
+    console.log(user);
     this.setState({ user });
   }
 
   handleSubmit = (e) => {
+    console.log(this.state.user);
     e.preventDefault();
-    Axios.post('/api/register', this.state.user)
-      .then(() => this.props.showLogin())
+    Axios
+      .post('/api/register', this.state.user)
+      .then(() => {
+        this.props.showLogin();
+        this.setState({
+          user: {
+            firstname: '',
+            lastname: '',
+            image: '',
+            age: 0,
+            gender: '',
+            preferredGender: '',
+            username: '',
+            email: '',
+            password: '',
+            passwordConfirmation: '',
+            base64: ''
+          }});
+      })
       .catch((err) => this.setState({ errors: err.response.data.errors }));
-    this.setState({ user: {
-      firstname: '',
-      lastname: '',
-      image: '',
-      age: 0,
-      gender: '',
-      preferredGender: '',
-      username: '',
-      email: '',
-      password: '',
-      passwordConfirmation: '',
-      base64: ''
-    }});
+
   }
 
   render() {
