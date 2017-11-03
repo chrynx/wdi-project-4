@@ -37,6 +37,19 @@ class Register extends React.Component {
     Axios.post('/api/register', this.state.user)
       .then(() => this.props.showLogin())
       .catch((err) => this.setState({ errors: err.response.data.errors }));
+    this.setState({ user: {
+      firstname: '',
+      lastname: '',
+      image: '',
+      age: 0,
+      gender: '',
+      preferredGender: '',
+      username: '',
+      email: '',
+      password: '',
+      passwordConfirmation: '',
+      base64: ''
+    }});
   }
 
   render() {
