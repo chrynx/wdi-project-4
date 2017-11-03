@@ -50,6 +50,7 @@ class Register extends React.Component {
       passwordConfirmation: '',
       base64: ''
     }});
+    console.log('state of user after registration', this.state.user);
   }
 
   render() {
